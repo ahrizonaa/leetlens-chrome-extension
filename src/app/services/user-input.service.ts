@@ -70,17 +70,12 @@ export class UserInput {
   }
 
   formatChanged() {
-    if (this.validate()) {
-      this.draw();
-    } else {
-    }
+    this.refresh();
   }
 
-  variantChanged() {
-    if (this.validate()) {
-      this.draw();
-    } else {
-    }
+  variantChanged(togglename: string) {
+    this.currDS.VariantChanged(togglename);
+    this.refresh();
   }
 
   exampleClicked(example: Example) {
@@ -97,7 +92,6 @@ export class UserInput {
   refresh() {
     if (this.validate()) {
       this.currError = '';
-      // this.draw();
       this.tabChanged();
     } else {
     }

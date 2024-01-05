@@ -115,15 +115,15 @@ class Graph extends DataStructure {
   }
 
   Plot() {
+    this.anime.Cancel();
     this.ClearCanvas();
     this.Draw();
   }
 
   Draw() {
-    console.log('Draw()');
     this.DrawNodes();
+    this.PlotEdges();
     this.DrawEdges();
-    this.AnimateEdges();
   }
 
   DrawNodes(): void {
@@ -163,7 +163,7 @@ class Graph extends DataStructure {
     }
   }
 
-  DrawEdges() {
+  PlotEdges() {
     for (let [from, to] of this.edgelist) {
       let node1 = this.graph[from];
       let node2 = this.graph[to];
@@ -276,15 +276,14 @@ class Graph extends DataStructure {
     return [text_x_offset, text_y_offset];
   }
 
-  AnimateEdges() {
-    // console.log('AnimateEdges()');
-    if (!this.anime.enabled) return;
+  DrawEdges() {
+    if (!this.anime.enabled || this.anime.cancelling) return;
     let res: { done: boolean; value: EdgeSegment } =
       this.edges[this.current_edge].next();
 
     if (res.done == false) {
       let { curr, next } = res.value;
-      this.anime.Request(this.AnimateEdges.bind(this));
+      this.anime.Request(this.DrawEdges.bind(this));
 
       this.cs.ctx.beginPath();
       this.cs.ctx.strokeStyle = this.edgeColor;
@@ -302,7 +301,7 @@ class Graph extends DataStructure {
       }
 
       if (this.current_edge < this.edges.length) {
-        this.anime.Request(this.AnimateEdges.bind(this));
+        this.anime.Request(this.DrawEdges.bind(this));
       }
       return;
     }
@@ -425,7 +424,9 @@ class Graph extends DataStructure {
     this.cs.ctx.stroke();
   }
 
-  Recolor() {}
+  VariantChanged(togglename: string) {
+    // nothing to do for graph
+  }
 }
 
 export { Graph };

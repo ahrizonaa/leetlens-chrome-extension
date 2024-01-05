@@ -287,6 +287,8 @@ class Stack extends DataStructure {
 
     return { x: x, y: y };
   }
+
+  VariantChanged(togglename: string) {}
 }
 
 export { Stack, StackBox };

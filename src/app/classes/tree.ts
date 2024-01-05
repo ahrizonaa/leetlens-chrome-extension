@@ -1,6 +1,3 @@
-import { Anime } from '../services/anime.service';
-import { Mathematics } from '../services/mathematics.service';
-import { UserInput } from '../services/user-input.service';
 import { BTreeNode } from './btree-node';
 import { DataStructure, EdgeSegment } from './data-structure';
 import { Edge } from './edge';
@@ -25,16 +22,15 @@ class Tree extends DataStructure {
   }
 
   Plot() {
+    this.anime.Cancel();
     this.ClearCanvas();
-    this.cs.ctx.fillStyle = this.canvasBgColor;
-    this.cs.ctx.fillRect(0, 0, this.cs.canvas.width, this.cs.canvas.height);
     this.Draw();
   }
 
   Draw(): void {
     this.DrawNodesBFS();
+    this.PlotEdges();
     this.DrawEdges();
-    this.AnimateEdges();
   }
 
   Parse(input: any[]) {
@@ -285,7 +281,7 @@ class Tree extends DataStructure {
     }
   }
 
-  DrawEdges(): void {
+  PlotEdges(): void {
     for (let i = 0; i < this.nodelist.length; i++) {
       if (this.nodelist[i] == null) {
         continue;
@@ -365,14 +361,14 @@ class Tree extends DataStructure {
     }
   }
 
-  AnimateEdges(): void {
-    if (!this.anime.enabled) return;
+  DrawEdges(): void {
+    if (!this.anime.enabled || this.anime.cancelling) return;
     let res: { done: boolean; value: EdgeSegment } =
       this.edges[this.current_edge].next();
 
     if (res.done == false) {
       let { curr, next } = res.value;
-      this.anime.Request(this.AnimateEdges.bind(this));
+      this.anime.Request(this.DrawEdges.bind(this));
 
       this.cs.ctx.beginPath();
       this.cs.ctx.strokeStyle = this.edgeColor;
@@ -385,9 +381,28 @@ class Tree extends DataStructure {
       this.current_edge += 1;
 
       if (this.current_edge < this.edges.length) {
-        this.anime.Request(this.AnimateEdges.bind(this));
+        this.anime.Request(this.DrawEdges.bind(this));
       }
       return;
+    }
+  }
+
+  VariantChanged(togglename: string) {
+    if (togglename == 'BST' && this.ui.currTab.options.toggles[togglename]) {
+      this.ui.currTab.options.toggles.MaxHeap = false;
+      this.ui.currTab.options.toggles.MinHeap = false;
+    } else if (
+      togglename == 'MaxHeap' &&
+      this.ui.currTab.options.toggles[togglename]
+    ) {
+      this.ui.currTab.options.toggles.BST = false;
+      this.ui.currTab.options.toggles.MinHeap = false;
+    } else if (
+      togglename == 'MinHeap' &&
+      this.ui.currTab.options.toggles[togglename]
+    ) {
+      this.ui.currTab.options.toggles.BST = false;
+      this.ui.currTab.options.toggles.MaxHeap = false;
     }
   }
 }

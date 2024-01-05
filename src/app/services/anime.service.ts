@@ -6,25 +6,29 @@ import { Injectable } from '@angular/core';
 export class Anime {
   id: number;
   enabled: boolean = true;
+  ids: number[];
+  cancelling: boolean = false;
 
   constructor() {
     this.id = undefined as any;
+    this.ids = [];
   }
 
   IsActive(): boolean {
-    return this.id !== undefined;
+    return this.ids.length == 0;
   }
   IsInactive(): boolean {
-    return this.id === undefined;
+    return this.ids.length == 0;
   }
   Request(fn: FrameRequestCallback): void {
-    this.id = window.requestAnimationFrame(fn);
+    this.ids.push(window.requestAnimationFrame(fn));
   }
   Cancel(): void {
-    if (this.id !== undefined)
-      for (let i = this.id; i > -1; i--) {
-        window.cancelAnimationFrame(i);
-      }
-    this.id = undefined as any;
+    this.cancelling = true;
+    for (let id of this.ids) {
+      window.cancelAnimationFrame(id);
+    }
+    this.ids = [];
+    this.cancelling = false;
   }
 }

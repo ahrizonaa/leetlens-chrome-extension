@@ -33,7 +33,10 @@ export class TogglePanel {
     this.ui.formatChanged();
   }
 
-  toggleChanged(evt: MatSlideToggleChange, key: string) {
-    this.ui.variantChanged();
+  toggleChanged(
+    evt: MatSlideToggleChange,
+    toggle: { key: string; value: boolean }
+  ) {
+    this.ui.variantChanged(toggle.key);
   }
 }

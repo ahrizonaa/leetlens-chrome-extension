@@ -298,6 +298,8 @@ class Queue extends DataStructure {
       }
     }
   }
+
+  VariantChanged(togglename: string) {}
 }
 
 export { Queue, QueueBox };

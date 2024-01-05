@@ -27,16 +27,15 @@ class LinkedList extends DataStructure {
   }
 
   Plot() {
-    this.cs.ctx.fillStyle = this.canvasBgColor;
-    this.cs.ctx.fillRect(0, 0, this.cs.canvas.width, this.cs.canvas.height);
+    this.anime.Cancel();
+    this.ClearCanvas();
     this.Draw();
   }
 
   Draw() {
-    this.ClearCanvas();
     this.DrawNodes();
+    this.PlotEdges();
     this.DrawEdges();
-    this.AnimateEdges();
   }
 
   Parse(input: any[]) {
@@ -103,7 +102,7 @@ class LinkedList extends DataStructure {
     }
   }
 
-  DrawEdges() {
+  PlotEdges() {
     for (let i = 0; i + 1 < this.dataset.length; i++) {
       let node1 = this.nodelist[i];
       let node2 = this.nodelist[i + 1];
@@ -126,14 +125,15 @@ class LinkedList extends DataStructure {
     }
   }
 
-  AnimateEdges() {
-    if (this.edges.length == 0) return;
+  DrawEdges() {
+    if (this.edges.length == 0 || !this.anime.enabled || this.anime.cancelling)
+      return;
     let res: { done: boolean; value: EdgeSegment } =
       this.edges[this.current_edge].next();
 
     if (res.done == false) {
       let { curr, next } = res.value;
-      this.anime.Request(this.AnimateEdges.bind(this));
+      this.anime.Request(this.DrawEdges.bind(this));
 
       this.cs.ctx.strokeStyle = this.edgeColor;
       this.cs.ctx.moveTo(curr.x, curr.y);
@@ -145,16 +145,16 @@ class LinkedList extends DataStructure {
       this.cs.ctx.closePath();
       this.current_edge += 1;
 
-      this.PlotArrowHead(last as any, first as any);
+      this.DrawArrowtip(last as any, first as any);
 
       if (this.current_edge < this.edges.length) {
-        this.anime.Request(this.AnimateEdges.bind(this));
+        this.anime.Request(this.DrawEdges.bind(this));
       }
       return;
     }
   }
 
-  PlotArrowHead(last: RelativePoint, first: RelativePoint) {
+  DrawArrowtip(last: RelativePoint, first: RelativePoint) {
     let centerPoint: CartesianPoint = last.ToCartesian();
 
     let a = 30;
@@ -255,6 +255,8 @@ class LinkedList extends DataStructure {
     this.cs.ctx.stroke();
     this.cs.ctx.closePath();
   }
+
+  VariantChanged(togglename: string) {}
 }
 
 export { LinkedList };

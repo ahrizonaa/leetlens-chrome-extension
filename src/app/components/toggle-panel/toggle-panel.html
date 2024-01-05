@@ -24,7 +24,7 @@
       >
         <mat-slide-toggle
           color="primary"
-          (change)="toggleChanged($event, toggle.key)"
+          (change)="toggleChanged($event, toggle)"
           [(ngModel)]="options.toggles[toggle.key]"
         >
           {{ toggle.key }}</mat-slide-toggle
