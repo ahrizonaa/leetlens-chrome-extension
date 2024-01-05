@@ -35,6 +35,9 @@ export class UserInput {
   }
 
   tabChanged() {
+    if (this.currInput == '' && this.currDS) {
+      this.currDS.ClearCanvas();
+    }
     switch (this.currTab.title) {
       case 'Graph':
         this.currDS = new Graph(this);
