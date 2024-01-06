@@ -110,7 +110,6 @@ class Stack extends DataStructure {
     if (this.dataset == null || this.dataset == undefined) {
       this.ui.currInput = JSON.stringify([1]);
       this.ui.draw();
-      return;
     } else if (this.dataset.length <= 4) {
       this.ui.currInput = JSON.stringify(
         JSON.parse(this.ui.currInput).concat([this.dataset.length + 1])

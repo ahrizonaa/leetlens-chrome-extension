@@ -50,20 +50,18 @@ class Queue extends DataStructure {
   }
 
   Parse(input: number[]) {
-    this.dataset = input.slice(0, 6);
-
+    this.dataset = input.slice(0, 5);
     this.queueWidth = this.cs.canvas.width - 100;
     this.queueHeight = 100;
   }
 
   Plot() {
     this.ClearCanvas();
-    this.cs.ctx.fillStyle = this.canvasBgColor;
-    this.cs.ctx.fillRect(0, 0, this.cs.canvas.width, this.cs.canvas.height);
     this.Draw();
   }
 
   Draw() {
+    console.log('drawing queue');
     this.DrawQueue();
     this.DrawBoxes();
     this.AnimateStackPush.bind(this);
@@ -111,47 +109,55 @@ class Queue extends DataStructure {
   }
 
   Enqueue() {
-    if (this.dataset.length >= 6) {
-      return;
-    }
     if (this.anime.IsActive()) {
       return;
     }
-    this.dataset.push('');
+    if (this.dataset == undefined) {
+      this.ui.currInput = JSON.stringify([1]);
+      this.ui.draw();
+    } else if (this.dataset.length <= 4) {
+      this.ui.currInput = JSON.stringify(
+        JSON.parse(this.ui.currInput).concat([this.dataset.length + 1])
+      );
 
-    let i = this.dataset.length - 1;
+      this.dataset.push(this.dataset.length + 1);
 
-    let x = 52.5 + i * (this.boxWidth + 2.5);
-    let y = this.cs.canvas.height / 2 - 45;
+      let i = this.dataset.length - 1;
 
-    let p0 = new RelativePoint(
-      this.cs.canvas.width - 5 - this.boxWidth,
-      y,
-      this.cs.canvas.width,
-      this.cs.canvas.height
-    );
+      let x = 52.5 + i * (this.boxWidth + 2.5);
+      let y = this.cs.canvas.height / 2 - 45;
 
-    let p1 = new RelativePoint(
-      x,
-      y,
-      this.cs.canvas.width,
-      this.cs.canvas.height
-    );
+      let p0 = new RelativePoint(
+        this.cs.canvas.width - 5 - this.boxWidth,
+        y,
+        this.cs.canvas.width,
+        this.cs.canvas.height
+      );
 
-    let points: RelativePoint[] = this.math.SegmentLine(p0, p1, 25);
+      let p1 = new RelativePoint(
+        x,
+        y,
+        this.cs.canvas.width,
+        this.cs.canvas.height
+      );
 
-    let box = new QueueBox(points, this.dataset[i]);
+      let points: RelativePoint[] = this.math.SegmentLine(p0, p1, 25);
 
-    this.EnqueueAnimation(box);
+      let box = new QueueBox(points, this.dataset[i]);
+      box.set('enqueue');
+
+      this.EnqueueAnimation(box);
+    }
   }
 
   Dequeue() {
-    if (this.dataset.length == 0) {
+    if (this.dataset == undefined || this.dataset.length == 0) {
       return;
     }
     if (this.anime.IsActive()) {
       return;
     }
+    console.log('Dequeue begin');
     let y = this.cs.canvas.height / 2 - 45;
     let box: QueueBox = this.boxes.shift() as QueueBox;
 
@@ -171,6 +177,10 @@ class Queue extends DataStructure {
     let points: RelativePoint[] = this.math.SegmentLine(p1, p0, 25);
 
     this.dataset.shift();
+
+    let currInput = JSON.parse(this.ui.currInput);
+    currInput.shift();
+    this.ui.currInput = JSON.stringify(currInput);
 
     box.points = points;
     box.curr = 0;
@@ -205,6 +215,7 @@ class Queue extends DataStructure {
 
   EnqueueAnimation(box: QueueBox) {
     if (!this.anime.enabled) {
+      console.log('EnqueueAnimation anime disabled');
       this.cs.ctx.fillStyle = Theme.NodeColor;
       this.cs.ctx.fillRect(
         box.points[box.points.length - 1].x - 1,
@@ -225,6 +236,8 @@ class Queue extends DataStructure {
       return;
     }
 
+    console.log('EnqueueAnimation anime enabled');
+
     this.animationQueue.push(box);
 
     if (this.anime.IsInactive()) {
@@ -240,10 +253,8 @@ class Queue extends DataStructure {
     }
     if (box.curr < box.points.length) {
       this.cs.ctx.beginPath();
-
-      this.cs.ctx.fillStyle = this.canvasBgColor;
       if (box.curr > 0) {
-        this.cs.ctx.fillRect(
+        this.cs.ctx.clearRect(
           box.points[box.curr - 1].x - 1,
           box.points[box.curr - 1].y - 1,
           this.boxWidth + 2,
@@ -282,8 +293,7 @@ class Queue extends DataStructure {
         );
         this.cs.ctx.closePath();
       } else if (box.dequeue) {
-        this.cs.ctx.fillStyle = this.canvasBgColor;
-        this.cs.ctx.fillRect(
+        this.cs.ctx.clearRect(
           box.points[box.curr - 1].x - 1,
           box.points[box.curr - 1].y - 1,
           this.boxWidth + 2,

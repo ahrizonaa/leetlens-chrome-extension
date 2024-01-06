@@ -15,7 +15,7 @@ export class Anime {
   }
 
   IsActive(): boolean {
-    return this.ids.length == 0;
+    return this.ids.length != 0;
   }
   IsInactive(): boolean {
     return this.ids.length == 0;
