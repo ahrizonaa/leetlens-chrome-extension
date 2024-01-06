@@ -61,7 +61,6 @@ class Queue extends DataStructure {
   }
 
   Draw() {
-    console.log('drawing queue');
     this.DrawQueue();
     this.DrawBoxes();
     this.AnimateStackPush.bind(this);
@@ -157,7 +156,6 @@ class Queue extends DataStructure {
     if (this.anime.IsActive()) {
       return;
     }
-    console.log('Dequeue begin');
     let y = this.cs.canvas.height / 2 - 45;
     let box: QueueBox = this.boxes.shift() as QueueBox;
 
@@ -215,7 +213,6 @@ class Queue extends DataStructure {
 
   EnqueueAnimation(box: QueueBox) {
     if (!this.anime.enabled) {
-      console.log('EnqueueAnimation anime disabled');
       this.cs.ctx.fillStyle = Theme.NodeColor;
       this.cs.ctx.fillRect(
         box.points[box.points.length - 1].x - 1,
@@ -235,8 +232,6 @@ class Queue extends DataStructure {
 
       return;
     }
-
-    console.log('EnqueueAnimation anime enabled');
 
     this.animationQueue.push(box);
 
