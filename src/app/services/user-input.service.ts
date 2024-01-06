@@ -11,6 +11,8 @@ import { LinkedList } from '../classes/linkedlist';
 import { Example } from '../types/Example';
 import { Theme } from '../constants/Theme';
 
+import fontColorContrast from 'better-font-color-contrast';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -103,6 +105,8 @@ export class UserInput {
   }
 
   colorChanged(color: string, name: string) {
+    let textColor = fontColorContrast(color);
+    Theme.NodeFontColor = textColor;
     if (name == 'Node') Theme.NodeColor = color;
     else if (name == 'Edge') Theme.EdgeColor = color;
     this.refresh();
