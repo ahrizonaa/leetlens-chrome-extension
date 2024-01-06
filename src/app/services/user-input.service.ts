@@ -78,6 +78,18 @@ export class UserInput {
     this.refresh();
   }
 
+  operationClicked(operation: string) {
+    if (operation == 'Push') {
+      (this.currDS as Stack).Push();
+    } else if (operation == 'Pop') {
+      (this.currDS as Stack).Pop();
+    } else if (operation == 'Enqueue') {
+      (this.currDS as Queue).Enqueue();
+    } else if (operation == 'Dequeue') {
+      (this.currDS as Queue).Dequeue();
+    }
+  }
+
   exampleClicked(example: Example) {
     this.currInput = JSON.stringify(example.dataset);
 

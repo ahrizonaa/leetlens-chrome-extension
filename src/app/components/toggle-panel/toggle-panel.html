@@ -18,21 +18,44 @@
 <mat-card>
   <mat-card-content>
     <div class="switch-container">
-      <div
-        class="switch-row"
-        *ngFor="let toggle of $any(options.toggles | keyvalue); let index; let array"
+      <ng-container
+        *ngIf="['Graph', 'Tree', 'LinkedList'].indexOf(ui.currTab.title) != -1"
       >
-        <mat-slide-toggle
-          color="primary"
-          (change)="toggleChanged($event, toggle)"
-          [(ngModel)]="options.toggles[toggle.key]"
+        <div
+          class="switch-row"
+          *ngFor="let toggle of $any(options.toggles | keyvalue); let index; let array"
         >
-          {{ toggle.key }}</mat-slide-toggle
-        >
-      </div>
-      <div *ngIf="!keys(options.toggles).length" class="empty-toggles">
-        <span>no variants</span>
-      </div>
+          <mat-slide-toggle
+            color="primary"
+            (change)="toggleChanged($event, toggle)"
+            [(ngModel)]="options.toggles[toggle.key]"
+          >
+            {{ toggle.key }}</mat-slide-toggle
+          >
+        </div>
+
+        <div *ngIf="keys(options.toggles).length == 0" class="empty-toggles">
+          <span>no variants</span>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="['Stack', 'Queue'].indexOf(ui.currTab.title) != -1">
+        <div class="button-col">
+          <button
+            *ngFor="let operation of options.toggles; let i = index"
+            mat-raised-button
+            color="primary"
+            class="operation-btn"
+            [style.marginRight]="i < options.toggles.length-1 ? '10px' : ''"
+            (click)="buttonClicked(operation)"
+          >
+            {{ operation }}
+          </button>
+        </div>
+        <div *ngIf="keys(options.toggles).length == 0" class="empty-toggles">
+          <span>no operations</span>
+        </div>
+      </ng-container>
     </div>
   </mat-card-content>
 </mat-card>

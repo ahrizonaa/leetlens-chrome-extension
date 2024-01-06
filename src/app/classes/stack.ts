@@ -41,14 +41,12 @@ class Stack extends DataStructure {
   }
 
   Parse(input: number[]) {
-    this.dataset = input.slice(0, 6);
+    this.dataset = input.slice(0, 5);
 
     this.stackHeight = this.cs.canvas.height - 100;
   }
 
   Plot() {
-    this.cs.ctx.fillStyle = this.canvasBgColor;
-    this.cs.ctx.fillRect(0, 0, this.cs.canvas.width, this.cs.canvas.height);
     this.Draw();
   }
 
@@ -62,7 +60,7 @@ class Stack extends DataStructure {
   DrawStack() {
     let x = this.cs.canvas.width / 2 - 50;
     let y = 50;
-    this.cs.ctx.strokeStyle = '#CCC';
+    this.cs.ctx.strokeStyle = '#AAA';
 
     this.cs.ctx.beginPath();
     this.cs.ctx.moveTo(x, y);
@@ -109,32 +107,51 @@ class Stack extends DataStructure {
   }
 
   Push() {
-    this.dataset.push('');
-
-    let i = this.dataset.length - 1;
-
-    let y = this.cs.canvas.height - (50 + (i + 1) * (this.boxHeight + 2));
-
-    let p0 = { x: 10, y: 10 };
-    let p1 = { x: this.cs.canvas.width / 2 - 45, y: 10 + (y - 10) / 4 };
-    let p2 = { x: this.cs.canvas.width / 2 - 45, y: y - (y - 10) / 4 };
-    let p3 = {
-      x: this.cs.canvas.width / 2 - 45,
-      y: this.cs.canvas.height - (50 + (i + 1) * (this.boxHeight + 4)) + 12,
-    };
-
-    let points: RelativePoint[] = [];
-
-    for (var j = 0; j < 1; j += this.beizerSpeed) {
-      var p = this.Bezier(j, p0, p1, p2, p3);
-      points.push(
-        new RelativePoint(p.x, p.y, this.cs.canvas.width, this.cs.canvas.height)
+    if (this.dataset == null || this.dataset == undefined) {
+      this.ui.currInput = JSON.stringify([1]);
+      this.ui.draw();
+      return;
+    } else if (this.dataset.length <= 4) {
+      this.ui.currInput = JSON.stringify(
+        JSON.parse(this.ui.currInput).concat([this.dataset.length + 1])
       );
+
+      this.dataset.push(this.dataset.length + 1);
+
+      let i = this.dataset.length - 1;
+
+      let y = this.cs.canvas.height - (50 + (i + 1) * (this.boxHeight + 2));
+
+      let p0 = { x: 10, y: 10 };
+      let p1 = { x: this.cs.canvas.width / 2 - 45, y: 10 + (y - 10) / 4 };
+      let p2 = { x: this.cs.canvas.width / 2 - 45, y: y - (y - 10) / 4 };
+      let p3 = {
+        x: this.cs.canvas.width / 2 - 45,
+        y: this.cs.canvas.height - (50 + (i + 1) * (this.boxHeight + 4)) + 12,
+      };
+
+      let points: RelativePoint[] = [];
+
+      for (var j = 0; j < 1; j += this.beizerSpeed) {
+        var p = this.Bezier(j, p0, p1, p2, p3);
+        points.push(
+          new RelativePoint(
+            p.x,
+            p.y,
+            this.cs.canvas.width,
+            this.cs.canvas.height
+          )
+        );
+      }
+
+      let box = new StackBox(
+        points,
+        this.dataset[this.dataset.length - 1],
+        true
+      );
+
+      this.EnqueueAnimation(box);
     }
-
-    let box = new StackBox(points);
-
-    this.EnqueueAnimation(box);
   }
 
   Pop() {
@@ -209,7 +226,6 @@ class Stack extends DataStructure {
     if (box.curr < box.points.length) {
       this.cs.ctx.beginPath();
 
-      // this.cs.ctx.fillStyle = this.canvasBgColor;
       if (box.curr > 0) {
         this.cs.ctx.clearRect(
           box.points[box.curr - 1].x - 1,

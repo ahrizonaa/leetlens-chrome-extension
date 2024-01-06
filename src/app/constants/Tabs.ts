@@ -125,7 +125,7 @@ export const Tabs: Tab[] = [
     title: 'Stack',
     options: {
       formats: [StackArray],
-      toggles: {},
+      toggles: ['Push', 'Pop'],
     },
     examples: [],
   },
@@ -133,7 +133,7 @@ export const Tabs: Tab[] = [
     title: 'Queue',
     options: {
       formats: [QueueArray],
-      toggles: {},
+      toggles: ['Enqueue', 'Dequeue'],
     },
     examples: [],
   },

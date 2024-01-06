@@ -169,3 +169,7 @@ div[role="listbox"] {
 span.mdc-list-item__primary-text {
   color: var(--theme-font) !important;
 }
+
+span.mdc-button__label {
+  text-align: center;
+}

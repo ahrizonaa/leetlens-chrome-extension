@@ -39,4 +39,8 @@ export class TogglePanel {
   ) {
     this.ui.variantChanged(toggle.key);
   }
+
+  buttonClicked(operation: string) {
+    this.ui.operationClicked(operation);
+  }
 }
