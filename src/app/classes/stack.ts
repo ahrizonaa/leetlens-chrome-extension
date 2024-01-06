@@ -108,14 +108,14 @@ class Stack extends DataStructure {
 
   Push() {
     if (this.dataset == null || this.dataset == undefined) {
-      this.ui.currInput = JSON.stringify([1]);
+      this.dataset = [1];
+      this.ui.currInput = JSON.stringify(this.dataset);
+      this.ui.validate();
       this.ui.draw();
     } else if (this.dataset.length <= 4) {
-      this.ui.currInput = JSON.stringify(
-        JSON.parse(this.ui.currInput).concat([this.dataset.length + 1])
-      );
-
       this.dataset.push(this.dataset.length + 1);
+      this.ui.currInput = JSON.stringify(this.dataset);
+      this.ui.validate();
 
       let i = this.dataset.length - 1;
 
@@ -180,6 +180,9 @@ class Stack extends DataStructure {
     }
 
     this.dataset.pop();
+
+    this.ui.currInput = JSON.stringify(this.dataset);
+    this.ui.validate();
 
     box.points = points;
     box.curr = 0;

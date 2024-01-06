@@ -113,6 +113,7 @@ export class UserInput {
     let result = this.validator.isValid(this);
 
     if (result === true) {
+      this.currError = '';
       return true;
     } else {
       this.currError = result as string;

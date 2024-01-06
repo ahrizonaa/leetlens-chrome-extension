@@ -112,14 +112,14 @@ class Queue extends DataStructure {
       return;
     }
     if (this.dataset == undefined) {
-      this.ui.currInput = JSON.stringify([1]);
+      this.dataset = [1];
+      this.ui.currInput = JSON.stringify(this.dataset);
+      this.ui.validate();
       this.ui.draw();
     } else if (this.dataset.length <= 4) {
-      this.ui.currInput = JSON.stringify(
-        JSON.parse(this.ui.currInput).concat([this.dataset.length + 1])
-      );
-
       this.dataset.push(this.dataset.length + 1);
+      this.ui.currInput = JSON.stringify(this.dataset);
+      this.ui.validate();
 
       let i = this.dataset.length - 1;
 
@@ -175,10 +175,8 @@ class Queue extends DataStructure {
     let points: RelativePoint[] = this.math.SegmentLine(p1, p0, 25);
 
     this.dataset.shift();
-
-    let currInput = JSON.parse(this.ui.currInput);
-    currInput.shift();
-    this.ui.currInput = JSON.stringify(currInput);
+    this.ui.currInput = JSON.stringify(this.dataset);
+    this.ui.validate();
 
     box.points = points;
     box.curr = 0;
