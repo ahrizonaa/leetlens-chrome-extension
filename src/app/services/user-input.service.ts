@@ -9,6 +9,7 @@ import { Stack } from '../classes/stack';
 import { Queue } from '../classes/queue';
 import { LinkedList } from '../classes/linkedlist';
 import { Example } from '../types/Example';
+import { Theme } from '../constants/Theme';
 
 @Injectable({
   providedIn: 'root',
@@ -98,6 +99,12 @@ export class UserInput {
     }
     this.currFormat = example.format;
 
+    this.refresh();
+  }
+
+  colorChanged(color: string, name: string) {
+    if (name == 'Node') Theme.NodeColor = color;
+    else if (name == 'Edge') Theme.EdgeColor = color;
     this.refresh();
   }
 

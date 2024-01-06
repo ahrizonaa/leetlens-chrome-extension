@@ -28,7 +28,7 @@ class Tree extends DataStructure {
   }
 
   Draw(): void {
-    this.DrawNodesBFS();
+    this.DrawNodes();
     this.PlotEdges();
     this.DrawEdges();
   }
@@ -223,7 +223,7 @@ class Tree extends DataStructure {
     }
   }
 
-  DrawNodesBFS() {
+  DrawNodes() {
     let queue = [this.root];
     let depth = 0;
     while (queue.length && depth <= this.depthZeroIndexed) {

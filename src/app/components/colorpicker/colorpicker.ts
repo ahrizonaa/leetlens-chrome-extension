@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { NgxColorsComponent } from 'ngx-colors';
+import { UserInput } from 'src/app/services/user-input.service';
 import { FloatingControlOptions } from 'src/app/types/FloatingControlOptions';
 
 @Component({
@@ -12,5 +12,12 @@ export class ColorPicker {
 
   color: string = '';
 
-  colorChanged(val: string) {}
+  constructor(private ui: UserInput) {}
+
+  colorChanged() {
+    if (!this.color) {
+      return;
+    }
+    this.ui.colorChanged(this.color, this.options.title);
+  }
 }
