@@ -38,7 +38,7 @@ export class UserInput {
   }
 
   tabChanged() {
-    if (this.currInput == '' && this.currDS) {
+    if (this.currDS) {
       this.currDS.ClearCanvas();
     }
     switch (this.currTab.title) {
@@ -105,10 +105,15 @@ export class UserInput {
   }
 
   colorChanged(color: string, name: string) {
-    let textColor = fontColorContrast(color);
-    Theme.NodeFontColor = textColor;
-    if (name == 'Node') Theme.NodeColor = color;
-    else if (name == 'Edge') Theme.EdgeColor = color;
+    if (name == 'Node') {
+      Theme.NodeColor = color;
+      Theme.NodeFontColor = fontColorContrast(Theme.NodeColor);
+    } else if (name == 'Edge') {
+      Theme.EdgeColor = color;
+    } else if (name == 'BG') {
+      Theme.BackgroundColor = color;
+      Theme.ChangeBackground(color);
+    }
     this.refresh();
   }
 

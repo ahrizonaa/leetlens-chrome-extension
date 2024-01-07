@@ -9,9 +9,10 @@
   [options]="edgeOptions"
   class="edge-colorpicker floating-control"
 ></colorpicker>
-<bgpicker
+
+<colorpicker
   *ngIf="ui.hasDrawing"
   [options]="bgOptions"
-  class="floating-control"
-></bgpicker>
+  class="bg-colorpicker floating-control"
+></colorpicker>
 <idle-art *ngIf="!ui.hasDrawing"></idle-art>

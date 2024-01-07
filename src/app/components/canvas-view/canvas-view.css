@@ -1,6 +1,6 @@
 :host {
-  width: auto;
-  height: auto;
+  width: 100%;
+  height: 100%;
   margin-bottom: 22px;
   position: relative;
   display: flex;
@@ -14,7 +14,6 @@ colorpicker.node-colorpicker {
 colorpicker.edge-colorpicker {
   left: 60px;
 }
-
-bgpicker {
-  right: 20px;
+colorpicker.bg-colorpicker {
+  left: 100px;
 }

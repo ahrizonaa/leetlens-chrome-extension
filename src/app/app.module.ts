@@ -22,10 +22,8 @@ import { ContentView } from './components/content-view/content-view';
 import { FormsModule } from '@angular/forms';
 import { IdleArtComponent } from './components/idle-art/idle-art.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { BgPicker } from './components/bgpicker/bgpicker';
 import { NgxColorsModule } from 'ngx-colors';
 import { CanvasBackground } from './components/canvas-background/canvas-background';
-import { BgSelectorBackground } from './components/bg-selector-background/bg-selector-background';
 
 @NgModule({
   declarations: [
@@ -38,9 +36,7 @@ import { BgSelectorBackground } from './components/bg-selector-background/bg-sel
     TabView,
     ContentView,
     IdleArtComponent,
-    BgPicker,
     CanvasBackground,
-    BgSelectorBackground,
   ],
   imports: [
     BrowserModule,

@@ -21,7 +21,7 @@ export class CanvasView {
     };
 
     this.bgOptions = {
-      title: 'Background',
+      title: 'BG',
     };
   }
 }

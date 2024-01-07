@@ -5,11 +5,8 @@
 
 html,
 body {
-  height: 100%;
-  max-height: 600px !important;
-  max-width: 600px !important;
-  height: fit-content;
-  width: fit-content;
+  height: 100vh;
+  width: 100vw;
   margin: 0;
   background: transparent;
   border-radius: 5px;
@@ -18,8 +15,6 @@ body {
 }
 
 button[mat-raised-button] {
-  /* text-overflow: ellipsis;
-  white-space: nowrap; */
   width: 100%;
   text-align: left !important;
   font-size: 0.65rem !important;
@@ -33,7 +28,6 @@ button[mat-raised-button] {
 
 mat-card-content {
   padding: 8px !important;
-  /* font-size: 0.75rem !important; */
 }
 
 mat-option {
@@ -94,7 +88,7 @@ canvas#canvas-main {
   font-size: 0.55em;
   text-align: center;
   line-height: normal;
-  color: var(--theme-font);
+  color: var(--theme-floating-font);
   font-weight: 500;
 }
 
@@ -109,8 +103,8 @@ div#canvas-bg-container {
   position: absolute;
   top: 0;
   left: 0;
-  width: 600px;
-  height: 600px;
+  width: 100%;
+  height: 100%;
   z-index: -10;
 }
 

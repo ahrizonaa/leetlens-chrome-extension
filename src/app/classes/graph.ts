@@ -40,7 +40,9 @@ class Graph extends DataStructure {
         break;
     }
 
-    this.cell_size = this.cs.canvas.width / this.grid_size;
+    let dim = Math.min(this.cs.canvas.width, this.cs.canvas.height);
+
+    this.cell_size = dim / this.grid_size;
     this.radius = Math.min(this.maxRadius, this.cell_size * 0.25);
   }
 
