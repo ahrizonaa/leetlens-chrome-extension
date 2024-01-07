@@ -16,8 +16,6 @@ class AppTheme {
   readonly UIDark: string = '#515151';
   readonly UILight: string = '#FFFFFF';
 
-  FontColor: string = '#FFFFFF';
-
   root: HTMLElement;
 
   constructor() {
