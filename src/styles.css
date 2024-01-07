@@ -9,7 +9,6 @@ body {
   width: 100vw;
   margin: 0;
   background: transparent;
-  border-radius: 5px;
   position: relative;
   overflow: hidden;
 }
@@ -149,12 +148,6 @@ mat-select {
 mat-slide-toggle > .mdc-form-field {
   color: var(--theme-font) !important;
 }
-
-/* textarea,
-.mat-mdc-text-field-wrapper {
-  color: var(--theme-font) !important;
-  background-color: var(--theme-ui-textarea) !important;
-} */
 
 div[role="listbox"] {
   background-color: var(--theme-ui) !important;
