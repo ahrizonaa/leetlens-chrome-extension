@@ -10,7 +10,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
-import { AppRoutingModule } from './app-routing.module';
 import { App } from './app';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CanvasView } from './components/canvas-view/canvas-view';
@@ -45,7 +44,6 @@ import { BgSelectorBackground } from './components/bg-selector-background/bg-sel
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
     MatIconModule,
     MatTabsModule,

@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { Subscription, debounceTime, distinctUntilChanged, tap } from 'rxjs';
