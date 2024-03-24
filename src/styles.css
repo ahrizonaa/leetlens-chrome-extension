@@ -25,10 +25,12 @@ button[mat-raised-button] {
   }
 }
 
+/* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
 mat-card-content {
   padding: 8px !important;
 }
 
+/* TODO(mdc-migration): The following rule targets internal classes of option that may no longer apply for the MDC version. */
 mat-option {
   display: inline !important;
   max-height: 35px !important;
@@ -53,7 +55,7 @@ textarea[matInput] {
   width: 30px !important;
 }
 
-.mat-error {
+.mat-mdc-form-field-error {
   font-size: 10px;
   font-weight: 400;
   letter-spacing: 0.4px;
@@ -136,15 +138,18 @@ svg * {
   color: var(--theme-tabs-font) !important;
 }
 
+/* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
 mat-card {
   background-color: var(--theme-ui) !important;
   color: var(--theme-font) !important;
 }
 
+/* TODO(mdc-migration): The following rule targets internal classes of select that may no longer apply for the MDC version. */
 mat-select {
   color: var(--theme-font) !important;
 }
 
+/* TODO(mdc-migration): The following rule targets internal classes of slide-toggle that may no longer apply for the MDC version. */
 mat-slide-toggle > .mdc-form-field {
   color: var(--theme-font) !important;
 }
