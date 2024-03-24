@@ -10,14 +10,6 @@
       type="text"
     >
     </textarea>
-    <mat-slide-toggle
-      matTooltip="Auto Refresh"
-      id="auto-refresh-toggle"
-      color="primary"
-      name="tg"
-      [(ngModel)]="ui.autoRefreshDisabled"
-      (change)="autoRefreshChanged($event)"
-    ></mat-slide-toggle>
     <button
       [disabled]="ui.refreshDisabled"
       id="execute-btn"

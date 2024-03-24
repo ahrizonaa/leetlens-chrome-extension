@@ -7,11 +7,9 @@ import { Injector, NO_ERRORS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatTooltipModule } from '@angular/material/tooltip';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { App } from './app';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CanvasView } from './components/canvas-view/canvas-view';
 import { JsonInput } from './components/json-input/json-input';
 import { ExamplesList } from './components/examples-list/examples-list';
@@ -20,7 +18,6 @@ import { TabView } from './components/tab-view/tab-view';
 import { ContentView } from './components/content-view/content-view';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { NgxColorsModule } from 'ngx-colors';
 import { CanvasBackground } from './components/canvas-background/canvas-background';
 
 @NgModule({
@@ -36,7 +33,6 @@ import { CanvasBackground } from './components/canvas-background/canvas-backgrou
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule,
     MatIconModule,
     MatTabsModule,
     MatCardModule,
@@ -46,9 +42,7 @@ import { CanvasBackground } from './components/canvas-background/canvas-backgrou
     MatFormFieldModule,
     MatButtonModule,
     MatInputModule,
-    MatDividerModule,
-    MatTooltipModule,
-    NgxColorsModule,
+    NoopAnimationsModule,
   ],
   providers: [],
   bootstrap: [App],
