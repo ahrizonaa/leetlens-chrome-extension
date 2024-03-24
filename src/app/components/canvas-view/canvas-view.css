@@ -7,13 +7,3 @@
   justify-content: center;
   align-items: center;
 }
-
-colorpicker.node-colorpicker {
-  left: 20px;
-}
-colorpicker.edge-colorpicker {
-  left: 60px;
-}
-colorpicker.bg-colorpicker {
-  left: 100px;
-}

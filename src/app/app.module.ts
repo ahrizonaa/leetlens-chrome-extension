@@ -13,14 +13,12 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { App } from './app';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CanvasView } from './components/canvas-view/canvas-view';
-import { ColorPicker } from './components/colorpicker/colorpicker';
 import { JsonInput } from './components/json-input/json-input';
 import { ExamplesList } from './components/examples-list/examples-list';
 import { TogglePanel } from './components/toggle-panel/toggle-panel';
 import { TabView } from './components/tab-view/tab-view';
 import { ContentView } from './components/content-view/content-view';
 import { FormsModule } from '@angular/forms';
-import { IdleArtComponent } from './components/idle-art/idle-art.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { NgxColorsModule } from 'ngx-colors';
 import { CanvasBackground } from './components/canvas-background/canvas-background';
@@ -29,13 +27,11 @@ import { CanvasBackground } from './components/canvas-background/canvas-backgrou
   declarations: [
     App,
     CanvasView,
-    ColorPicker,
     JsonInput,
     ExamplesList,
     TogglePanel,
     TabView,
     ContentView,
-    IdleArtComponent,
     CanvasBackground,
   ],
   imports: [
