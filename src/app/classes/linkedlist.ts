@@ -205,7 +205,7 @@ class LinkedList extends DataStructure {
       last.h
     );
 
-    if (this.ui.currTab.options.toggles.Doubly) {
+    if (this.ui.currTab.toggles.find((x) => x.isDoubly())) {
       // draw reverse arrow
       let centerPrev = first.ToCartesian();
       let x3, y3, x4, y4;

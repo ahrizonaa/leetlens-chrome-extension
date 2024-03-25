@@ -1,26 +1,24 @@
 :host {
-  /* margin-bottom: 5px; */
-  & span,
-  label {
-    font-size: 0.85em !important;
-  }
+  margin-bottom: 5px;
+}
 
-  & mat-card {
-    margin-bottom: 5px;
-  }
+.format-container {
+  margin-bottom: 5px;
+  /* display: flex; */
 }
 
 .switch-container {
-  height: 50px !important;
-  max-height: 50px;
-  min-height: 50px;
-  overflow-y: auto;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
-.switch-row:not(:last-child) {
-  margin-bottom: 10px;
+.switch-row {
+  display: flex;
+  align-items: center;
+  font-size: 11px;
+  line-height: 11px;
 }
 
 .empty-toggles {
@@ -30,7 +28,7 @@
   align-items: center;
 }
 
-.button-col {
+.button-container {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -41,4 +39,8 @@
 .operation-btn {
   width: auto;
   text-align: center;
+}
+
+p-inputSwitch {
+  transform: scale(0.8);
 }

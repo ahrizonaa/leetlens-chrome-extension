@@ -40,11 +40,11 @@ class Tree extends DataStructure {
 
     this.root = this.ConstructTree(this.dataset);
 
-    if (this.ui.currTab.options.toggles.BST) {
+    if (this.ui.currTab.toggles.find((x) => x.isBST())) {
       this.root = this.ToBST([...input]);
-    } else if (this.ui.currTab.options.toggles.MaxHeap) {
+    } else if (this.ui.currTab.toggles.find((x) => x.isMaxHeap())) {
       this.root = this.ToHeap([...input], 'MAX');
-    } else if (this.ui.currTab.options.toggles.MinHeap) {
+    } else if (this.ui.currTab.toggles.find((x) => x.isMinHeap())) {
       this.root = this.ToHeap([...input], 'MIN');
     }
 
@@ -388,21 +388,21 @@ class Tree extends DataStructure {
   }
 
   VariantChanged(togglename: string) {
-    if (togglename == 'BST' && this.ui.currTab.options.toggles[togglename]) {
-      this.ui.currTab.options.toggles.MaxHeap = false;
-      this.ui.currTab.options.toggles.MinHeap = false;
+    if (togglename == 'BST' && this.ui.currTab.toggles.find((x) => x.isBST())) {
+      this.ui.currTab.toggles.find((x) => x.name == 'MaxHeap')!.value = false;
+      this.ui.currTab.toggles.find((x) => x.name == 'MinHeap')!.value = false;
     } else if (
       togglename == 'MaxHeap' &&
-      this.ui.currTab.options.toggles[togglename]
+      this.ui.currTab.toggles.find((x) => x.name == 'MaxHeap')
     ) {
-      this.ui.currTab.options.toggles.BST = false;
-      this.ui.currTab.options.toggles.MinHeap = false;
+      this.ui.currTab.toggles.find((x) => x.name == 'BST')!.value = false;
+      this.ui.currTab.toggles.find((x) => x.name == 'MinHeap')!.value = false;
     } else if (
       togglename == 'MinHeap' &&
-      this.ui.currTab.options.toggles[togglename]
+      this.ui.currTab.toggles.find((x) => x.name == 'MinHeap')
     ) {
-      this.ui.currTab.options.toggles.BST = false;
-      this.ui.currTab.options.toggles.MaxHeap = false;
+      this.ui.currTab.toggles.find((x) => x.name == 'BST')!.value = false;
+      this.ui.currTab.toggles.find((x) => x.name == 'MaxHeap')!.value = false;
     }
   }
 }

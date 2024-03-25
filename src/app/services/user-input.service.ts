@@ -1,5 +1,5 @@
 import { Tab } from './../types/Tab';
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { Tabs } from '../constants/Tabs';
 import { Format } from '../types/Format';
 import { ValidatorService } from './validator.service';
@@ -16,15 +16,16 @@ import { Example } from '../types/Example';
 export class UserInput {
   public tabs = Tabs;
   public currTab: Tab = this.tabs[0];
-  public currFormat: Format = this.currTab.options.formats[0];
+  public currFormat: Format = this.currTab.formats[0];
   public currInput: string = '';
-  public autoRefreshDisabled: boolean = true;
   public refreshDisabled: boolean = false;
   public currError: string = '';
   public currDS!: Graph | Tree | Stack | Queue | LinkedList;
   public hasDrawing: boolean = false;
+  public injector: Injector;
 
-  constructor(public validator: ValidatorService) {
+  constructor(public validator: ValidatorService, injector: Injector) {
+    this.injector = injector;
     this.tabChanged();
   }
 
@@ -93,8 +94,12 @@ export class UserInput {
   exampleClicked(example: Example) {
     this.currInput = JSON.stringify(example.dataset);
 
-    for (let option of Object.keys(example.options)) {
-      this.currTab.options.toggles[option] = example.options[option];
+    for (let toggle of example.toggles) {
+      if (!toggle.isButton) {
+        let idx = this.currTab.toggles.findIndex((x) => x.name == toggle.name);
+
+        this.currTab.toggles[idx].value = toggle.value;
+      }
     }
     this.currFormat = example.format;
 
@@ -118,6 +123,20 @@ export class UserInput {
     } else {
       this.currError = result as string;
       return false;
+    }
+  }
+
+  Switch(togglename: string, val?: boolean) {
+    if (this.currTab) {
+      let idx = this.currTab.toggles.findIndex((x) => x.name == togglename);
+
+      if (idx != -1) {
+        if (val === undefined) {
+          return this.currTab.toggles[idx].value;
+        }
+
+        this.currTab.toggles[idx].value = val;
+      }
     }
   }
 }

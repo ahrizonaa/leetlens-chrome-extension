@@ -1,3 +1,4 @@
+import Toggle from '../classes/toggle';
 import { Tab } from '../types/Tab';
 import {
   AdjacencyList,
@@ -11,13 +12,8 @@ import {
 export const Tabs: Tab[] = [
   {
     title: 'Graph',
-    options: {
-      formats: [AdjacencyList, AdjacencyMatrix],
-      toggles: {
-        Directed: false,
-        Weighted: false,
-      },
-    },
+    formats: [AdjacencyList, AdjacencyMatrix],
+    toggles: [new Toggle('Directed'), new Toggle('Weighted')],
     examples: [
       {
         title: 'Connected Components',
@@ -26,10 +22,7 @@ export const Tabs: Tab[] = [
           [1, 2],
           [3, 4],
         ],
-        options: {
-          Directed: false,
-          Weighted: false,
-        },
+        toggles: [new Toggle('Directed'), new Toggle('Weighted')],
         format: AdjacencyList,
       },
       {
@@ -39,10 +32,7 @@ export const Tabs: Tab[] = [
           [2, 3],
           [3, 1],
         ],
-        options: {
-          Directed: true,
-          Weighted: false,
-        },
+        toggles: [new Toggle('Directed', true), new Toggle('Weighted')],
         format: AdjacencyList,
       },
       {
@@ -54,24 +44,15 @@ export const Tabs: Tab[] = [
           [5, 4],
           [4, 3],
         ],
-        options: {
-          Directed: false,
-          Weighted: false,
-        },
+        toggles: [new Toggle('Directed'), new Toggle('Weighted')],
         format: AdjacencyList,
       },
     ],
   },
   {
     title: 'Tree',
-    options: {
-      formats: [TreeArray],
-      toggles: {
-        BST: false,
-        MaxHeap: false,
-        MinHeap: false,
-      },
-    },
+    formats: [TreeArray],
+    toggles: [new Toggle('BST'), new Toggle('MaxHeap'), new Toggle('MinHeap')],
     examples: [
       {
         title: 'Longest ZigZag Path',
@@ -92,82 +73,71 @@ export const Tabs: Tab[] = [
           null,
           1,
         ],
-        options: {
-          BST: false,
-          MinHeap: false,
-          MaxHeap: false,
-        },
+        toggles: [
+          new Toggle('BST'),
+          new Toggle('MaxHeap'),
+          new Toggle('MinHeap'),
+        ],
         format: TreeArray,
       },
       {
         title: 'Diameter of Binary Tree',
         dataset: [1, 2, 3, 4, 5],
-        options: {
-          BST: false,
-          MinHeap: false,
-          MaxHeap: false,
-        },
+        toggles: [
+          new Toggle('BST'),
+          new Toggle('MaxHeap'),
+          new Toggle('MinHeap'),
+        ],
         format: TreeArray,
       },
       {
         title: 'Symmetric Tree',
         dataset: [1, 2, 2, 3, 4, 4, 3],
-        options: {
-          BST: false,
-          MinHeap: false,
-          MaxHeap: false,
-        },
+        toggles: [
+          new Toggle('BST'),
+          new Toggle('MaxHeap'),
+          new Toggle('MinHeap'),
+        ],
         format: TreeArray,
       },
     ],
   },
   {
     title: 'Stack',
-    options: {
-      formats: [StackArray],
-      toggles: ['Push', 'Pop'],
-    },
+    formats: [StackArray],
+    toggles: [new Toggle('Push', false, true), new Toggle('Pop', false, true)],
     examples: [],
   },
   {
     title: 'Queue',
-    options: {
-      formats: [QueueArray],
-      toggles: ['Enqueue', 'Dequeue'],
-    },
+    formats: [QueueArray],
+    toggles: [
+      new Toggle('Enqueue', false, true),
+      new Toggle('Dequeue', false, true),
+    ],
     examples: [],
   },
   {
     title: 'LinkedList',
-    options: {
-      formats: [LinkedListArray],
-      toggles: {
-        Doubly: false,
-      },
-    },
+    formats: [LinkedListArray],
+    toggles: [new Toggle('Doubly')],
     examples: [
       {
         title: 'Reverse Linked List',
         dataset: [1, 2, 3, 4, 5],
-        options: {
-          Doubly: false,
-        },
+        toggles: [new Toggle('Doubly')],
         format: LinkedListArray,
       },
       {
         title: 'Middle of Linked List',
         dataset: [1, 2, 3, 4, 5, 6],
-        options: {
-          Doubly: false,
-        },
+        toggles: [new Toggle('Doubly')],
         format: LinkedListArray,
       },
       {
         title: 'Delete Middle Node of Linked List',
         dataset: [1, 3, 4, 7, 1, 2, 6],
-        options: {
-          Doubly: false,
-        },
+        toggles: [new Toggle('Doubly')],
         format: LinkedListArray,
       },
     ],

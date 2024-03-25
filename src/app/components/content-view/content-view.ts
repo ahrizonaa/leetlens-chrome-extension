@@ -1,18 +1,17 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { UserInput } from 'src/app/services/user-input.service';
-import { Example } from 'src/app/types/Example';
-import { Options } from 'src/app/types/Options';
+import { TogglePanel } from '../toggle-panel/toggle-panel';
+import { ExamplesList } from '../examples-list/examples-list';
+import { JsonInput } from '../json-input/json-input';
+import { CanvasView } from '../canvas-view/canvas-view';
 
 @Component({
   selector: 'content-view',
   templateUrl: './content-view.html',
   styleUrls: ['./content-view.css'],
+  standalone: true,
+  imports: [TogglePanel, ExamplesList, JsonInput, CanvasView],
 })
 export class ContentView {
-  @Input('title') title: string = '';
-  @Input('options')
-  options!: Options;
-  @Input('examples') examples: Example[] = [];
-
   constructor(protected ui: UserInput) {}
 }

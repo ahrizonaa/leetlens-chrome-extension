@@ -1,18 +1,19 @@
-<mat-card appearance="outlined">
-  <mat-card-content id="examples-list">
-    <div class="col">
-      <div class="row" *ngFor="let example of examples">
-        <button
-          (click)="exampleClicked(example)"
-          color="primary"
-          mat-raised-button
-        >
-          {{ example.title }}
-        </button>
-      </div>
-      <div *ngIf="!examples || !examples.length" class="empty-examples-list">
-        <span>no examples</span>
-      </div>
+<p-card>
+  <div class="form-label">Examples</div>
+  <div id="examples-list" class="col">
+    @for (example of ui.currTab.examples; track $index) {
+    <div class="row">
+      <p-button
+        size="small"
+        [label]="example.title"
+        (onClick)="exampleClicked(example)"
+      >
+      </p-button>
     </div>
-  </mat-card-content>
-</mat-card>
+    } @empty {
+    <div class="empty-examples-list">
+      <span>no examples</span>
+    </div>
+    }
+  </div>
+</p-card>

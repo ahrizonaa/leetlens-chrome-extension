@@ -1,8 +1,10 @@
+import Toggle from '../classes/toggle';
 import { Example } from './Example';
-import { Options } from './Options';
+import { Format } from './Format';
 
 export type Tab = {
   title: string;
-  options: Options;
+  formats: Format[];
+  toggles: Toggle[];
   examples: Example[];
 };

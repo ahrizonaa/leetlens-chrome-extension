@@ -64,7 +64,7 @@ class Graph extends DataStructure {
       );
     }
 
-    if (this.ui.currTab.options.toggles.Weighted) {
+    if (this.ui.currTab.toggles.find((x) => x.isWeighted())) {
       for (let edge of this.dataset) {
         let key = edge[1] + '_' + edge[2];
         let key_reverse = edge[2] + '_' + edge[1];
@@ -92,7 +92,7 @@ class Graph extends DataStructure {
         if (this.dataset[row][col] != 0) {
           let edge = [row + 1, col + 1];
           this.edgelist.push(edge);
-          if (this.ui.currTab.options.toggles.Weighted) {
+          if (this.ui.currTab.toggles.find((x) => x.isWeighted())) {
             let key = edge[0] + '_' + edge[1];
             let key_reverse = edge[1] + '_' + edge[0];
             if (key in this.weights) {
@@ -131,8 +131,8 @@ class Graph extends DataStructure {
   DrawNodes(): void {
     for (let row = 0; row < this.matrix.length; row++) {
       for (let col = 0; col < this.matrix[row].length; col++) {
-        let offset_x = Math.floor(Math.random() * (10 - -10 + 1) + -10);
-        let offset_y = Math.floor(Math.random() * (10 - -10 + 1) + -10);
+        let offset_x = Math.floor(Math.random() * (2 - -2 + 1) + -2);
+        let offset_y = Math.floor(Math.random() * (2 - -2 + 1) + -2);
         let xr = this.cell_size * row + this.cell_size / 2 + offset_x;
         let yr = this.cell_size * col + this.cell_size / 2 + offset_y;
 
@@ -173,7 +173,7 @@ class Graph extends DataStructure {
       let key_from = to + '_' + from;
 
       if (
-        this.ui.currTab.options.toggles.Weighted &&
+        this.ui.currTab.toggles.find((x) => x.isWeighted()) &&
         this.weights[key_to as any].length == 0 &&
         this.weights[key_from as any].length == 0
       ) {
@@ -207,12 +207,12 @@ class Graph extends DataStructure {
         this.cs.ctx.moveTo(pr1_edge.x, pr1_edge.y);
         this.cs.ctx.lineTo(pr2_edge.x, pr2_edge.y);
         this.cs.ctx.stroke();
-        if (this.ui.currTab.options.toggles.Directed) {
+        if (this.ui.currTab.toggles.find((x) => x.isDirected())) {
           this.PlotArrowHead(pr2_edge, pr1_edge);
         }
       }
 
-      if (this.ui.currTab.options.toggles.Weighted) {
+      if (this.ui.currTab.toggles.find((x) => x.isWeighted())) {
         this.PlotEdgeLabel(node1, node2, key_from, key_to);
       }
     }
@@ -298,7 +298,7 @@ class Graph extends DataStructure {
       this.cs.ctx.closePath();
       this.current_edge += 1;
 
-      if (this.ui.currTab.options.toggles.Directed) {
+      if (this.ui.currTab.toggles.find((x) => x.isDirected())) {
         this.PlotArrowHead(last as any, first as any);
       }
 

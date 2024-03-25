@@ -1,15 +1,12 @@
-<mat-tab-group
-  style="margin-bottom: 10px"
-  mat-stretch-tabs="false"
-  mat-align-tabs="start"
-  (selectedTabChange)="tabSelected($event)"
+<p-selectButton
+  (onOptionClick)="tabSelected($any($event))"
+  [options]="Tabs"
+  optionLabel="title"
+  optionValue="title"
+  [unselectable]="true"
+  [(ngModel)]="selectedTab"
 >
-  <mat-tab *ngFor="let tab of ui.tabs; let i = index" [label]="tab.title">
-  </mat-tab>
-</mat-tab-group>
-<content-view
-  [title]="ui.currTab.title"
-  [options]="ui.currTab.options"
-  [examples]="ui.currTab.examples"
->
-</content-view>
+  <ng-template let-tab pTemplate> {{ tab.title }} </ng-template>
+</p-selectButton>
+
+<content-view></content-view>

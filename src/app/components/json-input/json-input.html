@@ -1,30 +1,23 @@
 <div class="textarea-root">
-  <mat-form-field>
-    <textarea
-      #input="ngModel"
-      name="ta"
-      [(ngModel)]="ui.currInput"
-      [placeholder]="ui.currFormat.placeholder + '\n\n'"
-      (ngModelChange)="textareaValueChanged($event)"
-      matInput
-      type="text"
-    >
-    </textarea>
-    <button
-      [disabled]="ui.refreshDisabled"
-      id="execute-btn"
-      mat-icon-button
-      matTooltip="Refresh"
-      color="primary"
-      aria-label="Refresh"
-      (click)="refreshClicked($event)"
-    >
-      <mat-icon [ngClass]="{'rotate-center': this.ui.refreshDisabled }"
-        >refresh</mat-icon
-      >
-    </button>
-  </mat-form-field>
-  <mat-error *ngIf="ui.currError" class="mat-error"
-    >{{ ui.currError }}</mat-error
+  <div class="form-label textarea-label">Dataset</div>
+  <textarea
+    pInputTextarea
+    #input="ngModel"
+    name="ta"
+    [(ngModel)]="ui.currInput"
+    [placeholder]="ui.currFormat.placeholder + '\n\n'"
+    (ngModelChange)="textareaValueChanged($event)"
+    type="text"
   >
+  </textarea>
+  <p-button
+    [disabled]="ui.refreshDisabled"
+    id="execute-btn"
+    aria-label="Refresh"
+    icon="pi pi-sync"
+    size="small"
+    severity="secondary"
+    (onClick)="refreshClicked($any($event))"
+  >
+  </p-button>
 </div>

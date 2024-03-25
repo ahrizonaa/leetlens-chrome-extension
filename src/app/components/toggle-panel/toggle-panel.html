@@ -1,61 +1,44 @@
-<mat-card appearance="outlined">
-  <mat-card-content>
-    <div class="format-container">
-      <mat-select
-        #select
-        [value]="ui.currFormat.name"
-        (selectionChange)="formatSelected($event)"
-        placeholder="Select Format"
-      >
-        <mat-option *ngFor="let format of options.formats" [value]="format.name"
-          >{{ format.name }}</mat-option
-        >
-      </mat-select>
+<p-card>
+  <div class="format-container">
+    <span class="form-label">Input Format</span>
+    <p-dropdown
+      #select
+      id="format-dropdown"
+      [disabled]="ui.currTab.formats.length == 1"
+      [options]="ui.currTab.formats"
+      [(ngModel)]="ui.currFormat"
+      optionLabel="name"
+      [showClear]="true"
+      (onChange)="formatSelected($any($event))"
+      placeholder="Select Format"
+      [showClear]="false"
+    ></p-dropdown>
+  </div>
+
+  @if (isToggleable()) {
+  <div class="form-label">Variants</div>
+  <div class="switch-container">
+    @for (toggle of ui.currTab.toggles; track $index) {
+    <div class="switch-row">
+      <p-inputSwitch
+        [(ngModel)]="toggle.value"
+        (ngModelChange)="toggleChanged($event, toggle)"
+      ></p-inputSwitch
+      ><span>{{toggle.name}}</span>
     </div>
-  </mat-card-content>
-</mat-card>
+    }
+  </div>
+  } @else {
+  <div class="form-label">Operations</div>
+  <div class="button-container">
+    @for (button of ui.currTab.toggles; track $index) {
+    <p-button
+      (onClick)="buttonClicked($event, button)"
+      [style.marginRight]="$index % 2 != 0 ? '0' : '5px'"
+      [label]="button.name"
+    ></p-button>
 
-<mat-card appearance="outlined">
-  <mat-card-content>
-    <div class="switch-container">
-      <ng-container
-        *ngIf="['Graph', 'Tree', 'LinkedList'].indexOf(ui.currTab.title) != -1"
-      >
-        <div
-          class="switch-row"
-          *ngFor="let toggle of $any(options.toggles | keyvalue); let index; let array"
-        >
-          <mat-slide-toggle
-            color="primary"
-            (change)="toggleChanged($event, toggle)"
-            [(ngModel)]="options.toggles[toggle.key]"
-          >
-            {{ toggle.key }}</mat-slide-toggle
-          >
-        </div>
-
-        <div *ngIf="keys(options.toggles).length == 0" class="empty-toggles">
-          <span>no variants</span>
-        </div>
-      </ng-container>
-
-      <ng-container *ngIf="['Stack', 'Queue'].indexOf(ui.currTab.title) != -1">
-        <div class="button-col">
-          <button
-            *ngFor="let operation of options.toggles; let i = index"
-            mat-raised-button
-            color="primary"
-            class="operation-btn"
-            [style.marginRight]="i < options.toggles.length-1 ? '10px' : ''"
-            (click)="buttonClicked(operation)"
-          >
-            {{ operation }}
-          </button>
-        </div>
-        <div *ngIf="keys(options.toggles).length == 0" class="empty-toggles">
-          <span>no operations</span>
-        </div>
-      </ng-container>
-    </div>
-  </mat-card-content>
-</mat-card>
+    }
+  </div>
+  }
+</p-card>

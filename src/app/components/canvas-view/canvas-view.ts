@@ -1,4 +1,3 @@
-import { FloatingControlOptions } from '../../types/FloatingControlOptions';
 import { Component } from '@angular/core';
 import { UserInput } from 'src/app/services/user-input.service';
 
@@ -6,22 +5,8 @@ import { UserInput } from 'src/app/services/user-input.service';
   selector: 'canvas-view',
   templateUrl: './canvas-view.html',
   styleUrls: ['./canvas-view.css'],
+  standalone: true,
 })
 export class CanvasView {
-  nodeOptions!: FloatingControlOptions;
-  edgeOptions!: FloatingControlOptions;
-  bgOptions!: FloatingControlOptions;
-  constructor(protected ui: UserInput) {
-    this.nodeOptions = {
-      title: 'Node',
-    };
-
-    this.edgeOptions = {
-      title: 'Edge',
-    };
-
-    this.bgOptions = {
-      title: 'BG',
-    };
-  }
+  constructor(protected ui: UserInput) {}
 }
