@@ -9,8 +9,4 @@ import { ContentView } from './components/content-view/content-view';
   standalone: true,
   imports: [CanvasBackground, ContentView],
 })
-export class App {
-  logoClicked(evt: MouseEvent) {
-    window.open('https://leetlens.vercel.app', '_blank');
-  }
-}
+export class App {}
