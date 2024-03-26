@@ -1,20 +1,19 @@
 :host {
-  height: 90%;
   display: block;
 }
 
+p-selectButton {
+  margin-bottom: 4px;
+}
+
 .controls-canvas-view {
-  /* width: 99%; */
   height: 100%;
   display: flex;
   flex-direction: column;
-  padding: 10px;
 }
 .controls-view {
   width: 100%;
-  /* width: 30% !important; */
-  /* min-width: 180px !important; */
-  /* max-width: 200px !important; */
+  padding: 5px 5px 0 5px;
   display: flex;
   flex-direction: column;
 }

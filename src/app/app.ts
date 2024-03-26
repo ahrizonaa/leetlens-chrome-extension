@@ -1,12 +1,16 @@
 import { Component } from '@angular/core';
-import { TabView } from './components/tab-view/tab-view';
 import { CanvasBackground } from './components/canvas-background/canvas-background';
+import { ContentView } from './components/content-view/content-view';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.html',
   styleUrls: ['./app.css'],
   standalone: true,
-  imports: [TabView, CanvasBackground],
+  imports: [CanvasBackground, ContentView],
 })
-export class App {}
+export class App {
+  logoClicked(evt: MouseEvent) {
+    window.open('https://leetlens.vercel.app', '_blank');
+  }
+}

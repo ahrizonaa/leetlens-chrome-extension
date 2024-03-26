@@ -15,3 +15,24 @@ app-tab-view {
   margin-top: 120px;
   text-align: center;
 }
+
+.logo-wrapper {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  user-select: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.logo-image {
+  height: 1.25rem;
+  width: 1.25rem;
+}
+
+.logo-text {
+  margin-left: 5px;
+}

@@ -1,5 +1,15 @@
 <div class="controls-canvas-view">
   <div class="controls-view">
+    <p-selectButton
+      (onOptionClick)="tabSelected($any($event))"
+      [options]="Tabs"
+      optionLabel="title"
+      optionValue="title"
+      [unselectable]="true"
+      [(ngModel)]="selectedTab"
+    >
+      <ng-template let-tab pTemplate> {{ tab.title }} </ng-template>
+    </p-selectButton>
     <toggle-panel></toggle-panel>
     <examples-list></examples-list>
     <json-input></json-input>
