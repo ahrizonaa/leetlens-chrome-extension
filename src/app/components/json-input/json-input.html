@@ -1,5 +1,17 @@
 <div class="textarea-root">
-  <div class="form-label textarea-label">Dataset</div>
+  @if (ui.LeetFill.length) {
+  <p-tabView (activeIndexChange)="datasetTabChanged($event)">
+    @for (dataset of ui.LeetFill; track $index) {
+    <p-tabPanel [closable]="true" [header]="$index.toString()"> </p-tabPanel>
+    }
+  </p-tabView>
+  }
+  <div
+    [style.top]="ui.LeetFill.length ? '30px' : '2px'"
+    class="form-label textarea-label"
+  >
+    Datasets
+  </div>
   <textarea
     pInputTextarea
     #input="ngModel"
@@ -8,8 +20,19 @@
     [placeholder]="ui.currFormat.placeholder + '\n\n'"
     (ngModelChange)="textareaValueChanged($event)"
     type="text"
+    [disabled]="ui.isLeetFilling"
   >
   </textarea>
+  <p-button
+    [disabled]="ui.isLeetFilling"
+    id="leetfill-btn"
+    aria-label="Autofill dataset from LeetCode"
+    label="Fill from LeetCode"
+    size="small"
+    severity="primary"
+    (onClick)="leetfillv2($any($event))"
+  >
+  </p-button>
   <p-button
     [disabled]="ui.refreshDisabled"
     id="execute-btn"
@@ -20,4 +43,14 @@
     (onClick)="refreshClicked($any($event))"
   >
   </p-button>
+
+  @if (ui.isLeetFilling) {
+  <p-progressSpinner
+    id="textarea-spinner"
+    ariaLabel="loading"
+  ></p-progressSpinner>
+  }
+  <span [style.opacity]="ui.currError ? '1' : '0'" class="input-error"
+    >{{ ui.currError }}</span
+  >
 </div>

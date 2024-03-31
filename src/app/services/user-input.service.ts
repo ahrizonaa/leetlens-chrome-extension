@@ -9,6 +9,7 @@ import { Stack } from '../classes/stack';
 import { Queue } from '../classes/queue';
 import { LinkedList } from '../classes/linkedlist';
 import { Example } from '../types/Example';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -18,15 +19,90 @@ export class UserInput {
   public currTab: Tab = this.tabs[0];
   public currFormat: Format = this.currTab.formats[0];
   public currInput: string = '';
-  public refreshDisabled: boolean = false;
   public currError: string = '';
   public currDS!: Graph | Tree | Stack | Queue | LinkedList;
   public hasDrawing: boolean = false;
   public injector: Injector;
+  public LeetFill: string[] = [];
+  public isLeetFilling: boolean = false;
+  public refreshDisabled: boolean = false;
+  public datasetIndicesToRemove: number[] = [];
+  public dialogStream: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(public validator: ValidatorService, injector: Injector) {
     this.injector = injector;
-    this.tabChanged();
+    this.tabChanged(true);
+  }
+
+  beginDatasetSelection() {
+    this.refreshDisabled = true;
+    this.isLeetFilling = true;
+    this.LeetFill = [];
+    this.fetchDatasetsFromLeetCode();
+  }
+
+  endDatasetSelection() {
+    this.dialogStream.next(false);
+    this.refreshDisabled = false;
+    this.isLeetFilling = false;
+    this.LeetFill = this.LeetFill.filter((e: any, i: number) => {
+      return this.datasetIndicesToRemove.indexOf(i) == -1;
+    });
+    this.datasetIndicesToRemove = [];
+    if (this.LeetFill.length >= 1) {
+      this.currInput = this.LeetFill[0];
+    }
+  }
+
+  fetchDatasetsFromLeetCode() {
+    (async () => {
+      try {
+        // @ts-ignore
+        const [tab] = await chrome.tabs.query({
+          active: true,
+        });
+
+        // @ts-ignore
+        var port = chrome.tabs.connect(tab.id!, { name: 'leetfill' });
+
+        let id = Math.floor(Math.random() * 100);
+
+        port.onMessage.addListener(
+          ((msg: {
+            data: string[];
+            op: string;
+            id: number;
+            error?: string;
+          }) => {
+            // @ts-ignore
+            if (chrome.runtime.lastError) {
+              this.currError = 'Something went wrong';
+              this.endDatasetSelection();
+              return;
+            }
+            // @ts-ignore
+            if (msg.error) {
+              this.currError = msg.error;
+              this.endDatasetSelection();
+            }
+
+            if (msg.op == 'leetfill' && msg.id == id) {
+              this.LeetFill = msg.data;
+              this.dialogStream.next(true);
+            }
+          }).bind(this)
+        );
+
+        port.postMessage({ op: 'leetfill', id: id });
+      } catch (error) {
+        this.currError = 'Something went wrong';
+        this.endDatasetSelection();
+      }
+    })();
+  }
+
+  datasetTabChanged(tabIndex: number) {
+    this.currInput = this.LeetFill[tabIndex];
   }
 
   parse(str: string) {
@@ -35,7 +111,7 @@ export class UserInput {
     });
   }
 
-  tabChanged() {
+  tabChanged(isInit: boolean = false) {
     if (this.currDS) {
       this.currDS.ClearCanvas();
     }
@@ -56,7 +132,7 @@ export class UserInput {
         this.currDS = new LinkedList(this);
         break;
     }
-    if (this.validate()) {
+    if (this.validate(isInit)) {
       this.draw();
     }
   }
@@ -114,7 +190,13 @@ export class UserInput {
     }
   }
 
-  validate(): boolean {
+  validate(isInit: boolean = false): boolean {
+    if (isInit) {
+      this.currError = '';
+      this.currInput = '';
+      return false;
+    }
+
     let result = this.validator.isValid(this);
 
     if (result === true) {

@@ -1,4 +1,4 @@
-<div class="controls-canvas-view">
+<div #view class="controls-canvas-view">
   <div class="controls-view">
     <p-selectButton
       (onOptionClick)="tabSelected($any($event))"
@@ -15,4 +15,33 @@
     <json-input></json-input>
   </div>
   <canvas-view class="canvas-view"> </canvas-view>
+  <p-dialog
+    [style]="{width: '250px'}"
+    [appendTo]="view"
+    header="Datasets"
+    position="center"
+    [(visible)]="dialogIsOpen"
+    [modal]="true"
+    [draggable]="false"
+    [resizable]="false"
+    [closable]="false"
+  >
+    <span class="leetfill-prompt">Choose what to keep:</span>
+    <div class="leetfill-lines">
+      @for (line of ui.LeetFill; track $index) {
+      <p-chip (onRemove)="chipRemoved($index)" [removable]="true">
+        <span class="pchip-text"><code>{{ line }}</code> </span>
+      </p-chip>
+      }
+    </div>
+    <div class="done-btn-wrapper">
+      <p-button
+        label="Done"
+        size="small"
+        severity="primary"
+        (onClick)="endDatasetSelection()"
+      >
+      </p-button>
+    </div>
+  </p-dialog>
 </div>

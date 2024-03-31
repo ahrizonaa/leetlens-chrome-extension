@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "LeetLens",
-  "version": "1.0",
+  "version": "1.1",
   "action": {
     "default_popup": "index.html",
     "default_icon": "assets/128.png"
@@ -11,5 +11,15 @@
     "32": "assets/icons/icon32.png",
     "48": "assets/icons/icon48.png",
     "128": "assets/icons/icon128.png"
-  }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://leetcode.com/*"],
+      "js": ["content.js"]
+    }
+  ],
+  "permissions": ["tabs"]
 }

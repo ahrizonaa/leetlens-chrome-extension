@@ -11,6 +11,12 @@ import {
 import { Tabs } from 'src/app/constants/Tabs';
 import { Tab } from 'src/app/types/Tab';
 import { FormsModule } from '@angular/forms';
+import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
+
+import { ChipModule } from 'primeng/chip';
+
+import { NgZone } from '@angular/core';
 
 @Component({
   selector: 'content-view',
@@ -24,13 +30,23 @@ import { FormsModule } from '@angular/forms';
     CanvasView,
     SelectButtonModule,
     FormsModule,
+    DialogModule,
+    ButtonModule,
+    ChipModule,
   ],
 })
 export class ContentView {
   Tabs: Tab[] = Tabs;
   selectedTab: string;
-  constructor(public ui: UserInput) {
+  dialogIsOpen: boolean = false;
+
+  constructor(public ui: UserInput, private zone: NgZone) {
     this.selectedTab = this.ui.currTab.title;
+    this.ui.dialogStream.subscribe((isOpen) => {
+      this.zone.run(() => {
+        this.dialogIsOpen = isOpen;
+      });
+    });
   }
 
   tabSelected(evt: SelectButtonOptionClickEvent) {
@@ -38,8 +54,18 @@ export class ContentView {
       (tab: Tab) => tab.title == evt.option.title
     )[0];
     this.ui.currFormat = this.ui.currTab.formats[0];
-    this.ui.currInput = '';
+    if (!this.ui.LeetFill.length) {
+      this.ui.currInput = '';
+    }
     this.ui.tabChanged();
     this.selectedTab = this.ui.currTab.title;
+  }
+
+  chipRemoved(idx: number) {
+    this.ui.datasetIndicesToRemove.push(idx);
+  }
+
+  endDatasetSelection() {
+    this.ui.endDatasetSelection();
   }
 }

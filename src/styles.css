@@ -130,3 +130,32 @@ json-input p-button > button {
 * {
   max-height: 600px;
 }
+
+.p-chip-text {
+  font-size: 10px;
+}
+
+.pi-chip-remove-icon {
+  font-size: 10px;
+}
+
+div[data-pc-name="chip"] {
+  width: 100%;
+}
+
+timesicon {
+  transform: scale(0.5);
+}
+
+.p-tabview-nav-link {
+  font-size: 10px;
+  padding: 5px 10px 5px 10px;
+}
+
+.p-tabview-panels {
+  display: none;
+}
+
+canvas-view {
+  cursor: move;
+}

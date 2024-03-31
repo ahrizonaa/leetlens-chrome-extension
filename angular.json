@@ -18,7 +18,13 @@
             "main": "src/main.ts",
             "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
-            "assets": ["src/favicon.ico", "src/assets", "src/manifest.json"],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets",
+              "src/manifest.json",
+              "src/background.js",
+              "src/content.js"
+            ],
             "styles": ["src/styles.css"],
             "scripts": ["node_modules/panzoom/dist/panzoom.min.js"]
           },
