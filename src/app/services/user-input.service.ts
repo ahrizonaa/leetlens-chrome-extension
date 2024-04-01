@@ -28,6 +28,7 @@ export class UserInput {
   public refreshDisabled: boolean = false;
   public datasetIndicesToRemove: number[] = [];
   public dialogStream: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  public leetfillTimeout: number | null = null;
 
   constructor(public validator: ValidatorService, injector: Injector) {
     this.injector = injector;
@@ -55,6 +56,12 @@ export class UserInput {
   }
 
   fetchDatasetsFromLeetCode() {
+    this.leetfillTimeout = setTimeout(() => {
+      if (this.isLeetFilling) {
+        this.endDatasetSelection();
+        this.currError = 'Something went wrong.  Not on LeetCode?';
+      }
+    }, 5000);
     (async () => {
       try {
         // @ts-ignore
