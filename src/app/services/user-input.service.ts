@@ -43,6 +43,7 @@ export class UserInput {
   }
 
   endDatasetSelection() {
+    clearTimeout(this.leetfillTimeout as number);
     this.dialogStream.next(false);
     this.refreshDisabled = false;
     this.isLeetFilling = false;
@@ -61,7 +62,7 @@ export class UserInput {
         this.endDatasetSelection();
         this.currError = 'Something went wrong.  Not on LeetCode?';
       }
-    }, 5000);
+    }, 10000);
     (async () => {
       try {
         // @ts-ignore

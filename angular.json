@@ -23,7 +23,8 @@
               "src/assets",
               "src/manifest.json",
               "src/background.js",
-              "src/content.js"
+              "src/content.js",
+              "src/128.png"
             ],
             "styles": ["src/styles.css"],
             "scripts": ["node_modules/panzoom/dist/panzoom.min.js"]
